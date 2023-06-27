@@ -23,14 +23,14 @@ def runExample():
 
 		print("tVOC:\t%.3f\n" % mySensor.TVOC)	
 
-		humidityVariable = random.randrange(0, 10000)/100   # 0 to 100%
-		temperatureVariable = random.randrange(500, 7000) / 100 #5C to 70C
+		#humidityVariable = random.randrange(0, 10000)/100   # 0 to 100%
+		#temperatureVariable = random.randrange(500, 7000) / 100 #5C to 70C
 
-		print("New humidity and temperature:")
-		print("  Humidity:    %.2f percent relative" % humidityVariable)
-		print("  Temperature: %.2f degrees C" % temperatureVariable)
+		#print("  Temperature: %.2f degrees C" % temperatureVariable)
+		#print("New humidity and temperature:")
+		#print("  Humidity:    %.2f percent relative" % humidityVariable)
 
-		mySensor.set_environmental_data(humidityVariable, temperatureVariable)
+		#mySensor.set_environmental_data(humidityVariable, temperatureVariable)
 		
 		time.sleep(1)
 
