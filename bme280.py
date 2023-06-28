@@ -15,8 +15,9 @@ def runExample():
 		return
 
 	mySensor.begin()
-	i = 5
-	while True:
+	i = 3
+	#while True:
+	while i >0:
 		i=i-1
 		
 		print("Humidity:\t%.3f" % mySensor.humidity)

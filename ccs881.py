@@ -15,8 +15,10 @@ def runExample():
 
 	mySensor.begin()
 
-	while True:
-
+	i=3
+	#while True:
+	while i>0:
+		i= i-1
 		mySensor.read_algorithm_results()
 
 		print("CO2:\t%.3f" % mySensor.CO2)

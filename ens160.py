@@ -14,7 +14,10 @@ ens.temperature_compensation = 25
 ens.humidity_compensation = 50
 
 
-while True:
+i = 3
+#while True:
+while i >0:
+    i=i-1
     print("AQI (1-5):", ens.AQI)
     print("TVOC (ppb):", ens.TVOC)
     print("eCO2 (ppm):", ens.eCO2)
@@ -23,7 +26,6 @@ while True:
     # new data shows up every second or so
     time.sleep(1)
 
-
-print ("ens160 is saying hi")
+    print ("ens160 is saying hi")
 
 
