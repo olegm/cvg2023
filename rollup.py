@@ -30,7 +30,7 @@ def dowork():
 		print ("ccs881.getCO2: ", ccs881.getCO2())
 		print ("ccs881.getTVOC: ", ccs881.getTVOC())
 		print ("all rolled up world!")
-		display.showInfo(ens160.geteCO2(),ccs881.getCO2())
+		display.showInfo(ens160.geteCO2(),ccs881.getCO2(),bme280.getTemp(),bme280.getHumidity(),ens160.getTVOC(), ccs881.getTVOC())
 
 if __name__ == '__main__':
 	try:
