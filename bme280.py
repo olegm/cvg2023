@@ -3,11 +3,11 @@ print ("hello world! - BME280")
 import qwiic_bme280
 import time
 import sys
+mySensor = qwiic_bme280.QwiicBme280()
 
 def runExample():
 
 	print("\nSparkFun BME280 Sensor  Example 1\n")
-	mySensor = qwiic_bme280.QwiicBme280()
 
 	if mySensor.connected == False:
 		print("The Qwiic BME280 device isn't connected to the system. Please check your connection", \
@@ -27,9 +27,25 @@ def runExample():
 		print("Altitude:\t%.3f" % mySensor.altitude_feet)
 
 		print("Temperature:\t%.2f" % mySensor.temperature_fahrenheit)		
+		print("Temperature:\t%.2f" % mySensor.temperature_celsius)		
 
 		print("")
 		
 		time.sleep(1)
 
-runExample()
+def getTemp():
+	mySensor.begin()
+	return mySensor.temperature_celsius
+
+def getHumidity():
+	mySensor.begin()
+	return mySensor.humidity
+
+
+
+if __name__ == '__main__':
+	try:
+		runExample()
+	except (KeyboardInterrupt, SystemExit) as exErr:
+		print("\nEnding Basic Example")
+		sys.exit(0)

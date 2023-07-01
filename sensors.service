@@ -1,0 +1,20 @@
+# as describe by
+#https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
+
+[Unit]
+Description=Cscart Orders to Smartbooks XML creator
+After=network.target
+After=mysqld.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=mreynolds
+ExecStart=/usr/bin/env /var/www/commerce_sync/programs/CS-Cart_Orders_to_SmartBooks/orderProcess_run.sh
+ExecStop=/usr/bin/env  /var/www/commerce_sync/programs/CS-Cart_Orders_to_SmartBooks/orderProcess_stop.sh
+ExecStop=/bin/rm -f    /var/www/commerce_sync/programs/CS-Cart_Orders_to_SmartBooks/orderProcess_stoprequest.lock
+
+[Install]
+WantedBy=multi-user.target

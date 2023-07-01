@@ -32,5 +32,21 @@ def runExample():
     #  To actually draw anything on the display, you must call the display() function. 
     myOLED.display()
 
-runExample()
+
+def showInfo(ens, ccs):
+    print ("ens: ", ens, " ccs: ", ccs)
+    myOLED.clear(myOLED.PAGE)  #  Clear the display's buffer
+    myOLED.print(ens)
+    myOLED.print(",")
+    myOLED.print(ccs)
+
+    myOLED.display()
+
+
+if __name__ == '__main__':
+    try:
+        runExample()
+    except (KeyboardInterrupt, SystemExit) as exErr:
+        print("\nEnding Basic Example")
+        sys.exit(0)
 

@@ -3,17 +3,29 @@ import qwiic_ccs811
 import time
 import sys
 
+mySensor = qwiic_ccs811.QwiicCcs811()
+mySensor.begin()
+humidityVariable     = 50.0
+temperatureVariable  = 22.0
+mySensor.set_environmental_data(humidityVariable, temperatureVariable)
+
+def getCO2():
+	mySensor.read_algorithm_results()
+	return mySensor.CO2
+
+def getTVOC():
+	mySensor.read_algorithm_results()
+	return mySensor.TVOC
+
 def runExample():
 
 	print("\nSparkFun CCS811 Sensor Basic Example \n")
-	mySensor = qwiic_ccs811.QwiicCcs811()
 
 	if mySensor.connected == False:
 		print("The Qwiic CCS811 device isn't connected to the system. Please check your connection", \
 			file=sys.stderr)
 		return
 
-	mySensor.begin()
 
 	i=3
 	#while True:
@@ -25,17 +37,25 @@ def runExample():
 
 		print("tVOC:\t%.3f\n" % mySensor.TVOC)	
 
-		#humidityVariable = random.randrange(0, 10000)/100   # 0 to 100%
-		#temperatureVariable = random.randrange(500, 7000) / 100 #5C to 70C
+		#mySensor.setEnvironmentalData(25.0, 25.0)
+		humidityVariable = 25.0   # 0 to 100%
+		temperatureVariable = 25.1 #5C to 70C
 
-		#print("  Temperature: %.2f degrees C" % temperatureVariable)
-		#print("New humidity and temperature:")
-		#print("  Humidity:    %.2f percent relative" % humidityVariable)
+		print("New humidity and temperature:")
+		print("  Temperature: %.2f degrees C" % temperatureVariable)
+		print("  Humidity:    %.2f percent relative" % humidityVariable)
 
-		#mySensor.set_environmental_data(humidityVariable, temperatureVariable)
+		mySensor.set_environmental_data(humidityVariable, temperatureVariable)
 		
 		time.sleep(1)
 
+def setTemp(temp):
+	temperatureVariable  =temp
+	mySensor.set_environmental_data(humidityVariable, temperatureVariable)
+
+def setHumidity(humidity):
+	humidityVariable  =humidity
+	mySensor.set_environmental_data(humidityVariable, temperatureVariable)
 
 if __name__ == '__main__':
 	try:
