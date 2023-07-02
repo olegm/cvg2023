@@ -39,15 +39,17 @@ def init():
     return myOLED
 
 def showInfo(myOLED,ens, ccs,temp,hum,Evoc, Cvoc):
-    print ("ens: ", ens, " ccs: ", ccs)
+    #print ("ens: ", ens, " ccs: ", ccs)
 
     #myOLED = qwiic_micro_oled.QwiicMicroOled()
 
     #if False:  #myOLED.isConnected() == False:
 
     #myOLED.clear(myOLED.PAGE)  #  Clear the display's buffer
-    myOLED.begin()
-
+    #myOLED.begin()
+    #myOLED.clear(myOLED.ALL)
+    #myOLED.display()
+    myOLED.set_cursor(0, 0)
     myOLED.print("ens: % 5d" % ens)
     myOLED.print("ccs: % 5d" % ccs)
     myOLED.print("temp: % 3dc" % temp)
@@ -65,7 +67,7 @@ if __name__ == '__main__':
         print ("before")
         showInfo(myOLED, 1,2,3,4,5,6)
         print ("after")
-        time.sleep(1)
+        time.sleep(10)
         showInfo(myOLED, 6,5,4,3,2,1)
         print ("after")
         #runExample()

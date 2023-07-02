@@ -14,12 +14,20 @@ def setHumidity(humidity):
 	ens.humidity_compensation = humidity
 
 def getAQI():
- 	return ens.AQI
-def getTVOC():
- 	return ens.TVOC
-def geteCO2():
- 	return ens.eCO2
+    ens.read_all_sensors()
+    return ens.AQI
 
+def getTVOC():
+    ens.read_all_sensors()
+    return ens.TVOC
+
+def geteCO2():
+    ens.read_all_sensors()
+    return ens.eCO2
+
+def reset():
+    print("         ens reset ")
+    ens.reset()
 
 def runExample():
 
@@ -33,6 +41,7 @@ def runExample():
     #while True:
     while i >0:
         i=i-1
+        ens.read_all_sensors()
         print("AQI (1-5):", ens.AQI)
         print("TVOC (ppb):", ens.TVOC)
         print("eCO2 (ppm):", ens.eCO2)
