@@ -50,12 +50,25 @@ def showInfo(myOLED,ens, ccs,temp,hum,Evoc, Cvoc):
     #myOLED.clear(myOLED.ALL)
     #myOLED.display()
     myOLED.set_cursor(0, 0)
+
+    print("ens: % 5d" % ens)
     myOLED.print("ens: % 5d" % ens)
+
+    print("ccs: % 5d" % ccs)
     myOLED.print("ccs: % 5d" % ccs)
+
+    print("temp: % 3dc" % temp)
     myOLED.print("temp: % 3dc" % temp)
+
+    print("hum:  % 3d" % hum,end = '' )
+    print("%") 
     myOLED.print("hum:  % 3d" % hum)
     myOLED.print("%")
+
+    print("voc1: % 4d" % Evoc)
     myOLED.print("voc1: % 4d" % Evoc)
+
+    print("voc2: % 4d" % Cvoc)
     myOLED.print("voc2: % 4d" % Cvoc)
 
     myOLED.display()
