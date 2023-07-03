@@ -1,5 +1,3 @@
-print ("hello world! - BME280")
-
 import qwiic_bme280
 import time
 import sys

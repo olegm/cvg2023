@@ -5,12 +5,14 @@ import RPi.GPIO as GPIO
 import bme280
 import ccs881
 import ens160
-import buzzer
-import camera
+#import buzzer
+#import camera
 import display
-
+import blinky
 
 leds = [14, 15, 18]
+etol = 800
+ctol = 1800
 
 def dowork():
 	sanitydict = {"checks":0, \
@@ -25,7 +27,7 @@ def dowork():
 	myOLED = display.init()	
 	i= 250
 	while i>0:
-		i=i-1
+		#i=i-1
 		if(sanitydict.get("loops")>10):
 			ccs881.setTemp( bme280.getTemp())
 			ccs881.setHumidity( bme280.getHumidity())
@@ -59,9 +61,13 @@ def dowork():
 			sanitydict.get("ccs881TVOC") )
 
 		if(calculate_alarm(sanitydict)):
-			sanitydict = soundalarm(sanitydict)
+			if(sanitydict.get("cycle")):
+				sanitydict = blink.alarm2(sanitydict)
+			else:
+				sanitydict = blinky.soundalarm(30,sanitydict)
 		else:
-			quietalarm()
+			sanitydict.update({"cycle":0})
+			blinky.quietalarm()
 
 		print ("all rolled up world!")
 		time.sleep(1)
@@ -84,41 +90,33 @@ def init():
 	#GPIO.setmode(GPIO.BOARD)
 	for led in leds:
 		GPIO.setup(led, GPIO.OUT)
+		GPIO.output(led, GPIO.HIGH)
+		time.sleep(1)
+	for led in leds:
+		GPIO.output(led, GPIO.LOW)
+		time.sleep(1)
+
 	ens160.setTemp( bme280.getTemp())
 	ens160.setHumidity( bme280.getHumidity())
 	ccs881.setTemp( bme280.getTemp())
 	ccs881.setHumidity( bme280.getHumidity())
 
 
-
-def soundalarm(sanitydict):
-	print ("                                       alarm!")
-
-	cycle = sanitydict.get("cycle")
-	if(cycle == 0):
-		i=0
-		for led in leds :
-			print(led)
-			if(i):
-				GPIO.output(led, GPIO.HIGH)
-				i = 0
-			else:
-				GPIO.output(led, GPIO.LOW)
-				i=1
-
-	cycle += 1
-	sanitydict.update({"cycle":cycle})
-	return sanitydict
-
-def quietalarm():
-	return 
-
 def calculate_alarm(sanitydict):
-	return sanitydict
+	rval = 0
+	if(sanitydict.get("ens160eCO2") != 0):
+		if(sanitydict.get("ens160eCO2") > etol and sanitydict.get("ccs881CO2") > ctol):
+			rval = 1
+	else:
+		if( sanitydict.get("ccs881CO2") > ctol):
+			rval = 1
+
+	return rval
 
 if __name__ == '__main__':
 	try:
 		dowork()
 	except (KeyboardInterrupt, SystemExit) as exErr:
 		print("\nEnding Basic Example")
+		blinky.quietalarm()
 		sys.exit(0)
