@@ -1,6 +1,8 @@
 import sys
 import time
 import RPi.GPIO as GPIO
+import display
+
 
 
 leds = [14, 15, 18]
@@ -16,16 +18,17 @@ def dowork():
 
 	#	#print ("blinky world!")
 	#	time.sleep(.03)
-	i= 250
+	i= 2
 	while i>0:
-		i = i+1
-		soundalarm(3)
+		i = i-1
+		soundalarm(3,sanitydict)
 		quietalarm()
 		time.sleep(3)
 
 def init():
 	#GPIO.setmode(GPIO.BOARD)
 	GPIO.setmode(GPIO.BCM)
+	display.clear()
 	for led in leds:
 		GPIO.setup(led, GPIO.OUT)
 

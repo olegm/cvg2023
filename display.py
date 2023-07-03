@@ -73,17 +73,33 @@ def showInfo(myOLED,ens, ccs,temp,hum,Evoc, Cvoc):
 
     myOLED.display()
 
-def clear(myOLED):
-    myOLED.set_cursor(0, 0)
-    myOLED.print("          ")
-    myOLED.print("          ")
-    myOLED.print("          ")
-    myOLED.print("          ")
-    myOLED.print("          ")
-    myOLED.print("          ")
-    myOLED.print("          ")
-    myOLED.print("          ")
-    myOLED.print("          ")
+def clear():
+    myOLED = qwiic_micro_oled.QwiicMicroOled()
+
+    #if False:  #myOLED.isConnected() == False:
+    if not myOLED.connected:
+        #print("The Qwiic Micro OLED device isn't connected to the system. Please check your connection", \
+            #file=sys.stderr)
+        return
+
+    #  Before you can start using the OLED, call begin() to init all of the pins and configure the OLED.
+    myOLED.begin()
+    myOLED.clear(myOLED.PAGE)  #  Clear the display's buffer
+
+    #  To actually draw anything on the display, you must call the display() function. 
+    myOLED.display()
+
+    #myOLED.set_cursor(0, 0)
+    #myOLED.print("          ")
+    #myOLED.print("          ")
+    #myOLED.print("          ")
+    #myOLED.print("          ")
+    #myOLED.print("          ")
+    #myOLED.print("          ")
+    #myOLED.print("          ")
+    #myOLED.print("          ")
+    #myOLED.print("          ")
+    #myOLED.display()
 
 if __name__ == '__main__':
     try:
