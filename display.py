@@ -73,6 +73,17 @@ def showInfo(myOLED,ens, ccs,temp,hum,Evoc, Cvoc):
 
     myOLED.display()
 
+def clear(myOLED):
+    myOLED.set_cursor(0, 0)
+    myOLED.print("          ")
+    myOLED.print("          ")
+    myOLED.print("          ")
+    myOLED.print("          ")
+    myOLED.print("          ")
+    myOLED.print("          ")
+    myOLED.print("          ")
+    myOLED.print("          ")
+    myOLED.print("          ")
 
 if __name__ == '__main__':
     try:

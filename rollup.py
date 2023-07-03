@@ -119,4 +119,5 @@ if __name__ == '__main__':
 	except (KeyboardInterrupt, SystemExit) as exErr:
 		print("\nEnding Basic Example")
 		blinky.quietalarm()
+		#display.clear(myOLED)
 		sys.exit(0)
