@@ -2,7 +2,7 @@
 #https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
 
 [Unit]
-Description=Air quality sensors
+Description=Party time blinky lights!
 After=network.target
 #After=mysqld.service
 StartLimitIntervalSec=0
@@ -12,7 +12,7 @@ Type=simple
 Restart=always
 RestartSec=10
 User=root
-ExecStart=/usr/bin/env /usr/bin/python3 /home/lmiller/cvg2023/rollup.py
+ExecStart=/usr/bin/env /usr/bin/python3 /home/lmiller/cvg2023/blinky.py
 
 [Install]
 WantedBy=multi-user.target
