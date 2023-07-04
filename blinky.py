@@ -76,8 +76,8 @@ def alarm2(sanitydict):
 	
 
 def soundalarm(numSeconds,sanitydict):
-	sanitydict.update({"cycle":0})
-	delay = .03
+	#sanitydict.update({"cycle":0})
+	delay = sanitydict.get("delay")
 	while(numSeconds > 0):
 		sanitydict = alarm2(sanitydict)
 		numSeconds = numSeconds - delay

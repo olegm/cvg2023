@@ -11,14 +11,15 @@ import display
 import blinky
 
 leds = [14, 15, 18]
-etol = 800
-ctol = 1800
 
 def dowork():
 	sanitydict = {"checks":0, \
 		"ens160ZeroCount":0, \
 		"cycle":0, \
 		"loops":0, \
+		"delay":.031, \
+		"etol":900, \
+		"ctol":1800, \
 	}
 
 	init()
@@ -62,11 +63,12 @@ def dowork():
 
 		if(calculate_alarm(sanitydict)):
 			if(sanitydict.get("cycle")):
-				sanitydict = blinky.alarm2(sanitydict)
+				#sanitydict = blinky.alarm2(sanitydict)
+				sanitydict = blinky.soundalarm(3,sanitydict)
+
 			else:
 				sanitydict = blinky.soundalarm(30,sanitydict)
 		else:
-			sanitydict.update({"cycle":0})
 			blinky.quietalarm()
 
 		print ("all rolled up world!")
@@ -104,11 +106,20 @@ def init():
 
 def calculate_alarm(sanitydict):
 	rval = 0
+			
+	etol = sanitydict.get("etol") #		"etol":900, \
+	ctol = sanitydict.get("ctol") #		"ctol":1800, \
+
+	eeco2 = sanitydict.get("ens160eCO2")
+	eeco2 = eeco2 - sanitydict.get("ens160TVOC")
+	ceco2 = sanitydict.get("ccs881CO2")
+	ceco2 = ceco2 - sanitydict.get("ccs881TVOC")
+
 	if(sanitydict.get("ens160eCO2") != 0):
-		if(sanitydict.get("ens160eCO2") > etol and sanitydict.get("ccs881CO2") > ctol):
+		if(eeco2 > etol and ceco2 > ctol):
 			rval = 1
 	else:
-		if( sanitydict.get("ccs881CO2") > ctol):
+		if( ceco2 > ctol):
 			rval = 1
 
 	return rval
@@ -117,7 +128,7 @@ if __name__ == '__main__':
 	try:
 		dowork()
 	except (KeyboardInterrupt, SystemExit) as exErr:
-		print("\nEnding Basic Example")
+		print("\nEnding rollup")
 		blinky.quietalarm()
 		#display.clear(myOLED)
 		sys.exit(0)
