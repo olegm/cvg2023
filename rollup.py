@@ -62,7 +62,7 @@ def dowork():
 
 		if(calculate_alarm(sanitydict)):
 			if(sanitydict.get("cycle")):
-				sanitydict = blink.alarm2(sanitydict)
+				sanitydict = blinky.alarm2(sanitydict)
 			else:
 				sanitydict = blinky.soundalarm(30,sanitydict)
 		else:
