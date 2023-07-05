@@ -111,9 +111,9 @@ def calculate_alarm(sanitydict):
 	ctol = sanitydict.get("ctol") #		"ctol":1800, \
 
 	eeco2 = sanitydict.get("ens160eCO2")
-	eeco2 = eeco2 - sanitydict.get("ens160TVOC")
+	#eeco2 = eeco2 - sanitydict.get("ens160TVOC")
 	ceco2 = sanitydict.get("ccs881CO2")
-	ceco2 = ceco2 - sanitydict.get("ccs881TVOC")
+	#ceco2 = ceco2 - sanitydict.get("ccs881TVOC")
 
 	if(sanitydict.get("ens160eCO2") != 0):
 		if(eeco2 > etol and ceco2 > ctol):
